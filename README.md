@@ -12,3 +12,7 @@ Site web de la Fondation Iyeli Molangi Eddy. Le site est statique et utilise Sup
 6. Déployer le contenu de la racine sur un hébergement de site statique.
 
 Les clés publishable/anon sont destinées au navigateur et sont limitées par les politiques RLS. Ne publiez jamais de clé `service_role`.
+
+## Application d’administration (PWA)
+
+Servez le site en HTTPS, ouvrez `admin.html`, puis utilisez le bouton d’installation du navigateur. Sur iPhone/iPad, dans Safari, choisissez **Partager → Ajouter à l’écran d’accueil**. Le cache PWA conserve uniquement l’interface statique ; connexion, publications et envois de médias nécessitent Internet et Supabase.
