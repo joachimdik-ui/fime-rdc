@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow"><title>Admin – FIME</title>
+<style>
+:root{color-scheme:light;--b:#0b3d91;--c:#1cabe2}*{box-sizing:border-box;margin:0}
+body{font:16px/1.5 system-ui,Arial,sans-serif;background:#f2f6fb;color:#1d2733}
+header{background:var(--b);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+main{max-width:1000px;margin:24px auto;padding:0 16px}.box{background:#fff;padding:22px;margin-bottom:22px;box-shadow:0 2px 8px #0001}
+h2{color:var(--b);margin-bottom:14px}input,textarea,select{width:100%;padding:10px;margin:4px 0 12px;border:2px solid #cfd8e6;font:inherit}
+label{font-weight:600;font-size:14px}button{background:var(--c);color:#fff;border:0;padding:10px 20px;font-weight:700;cursor:pointer;font-size:15px}
+button.s{background:#e7edf6;color:var(--b);padding:6px 12px;font-size:13px}button.d{background:#c0392b}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e3e9f2;flex-wrap:wrap}
+.row img,.row video{width:70px;height:50px;object-fit:cover}.pub{font-size:12px;padding:2px 8px;border-radius:20px;background:#d4f5dd}.dr{background:#ffe9c7}
+.help{font-size:13px;color:#526174;margin:4px 0 12px}.media-queue{display:grid;gap:8px;margin:6px 0 18px}.media-queue .row select{width:auto;min-width:190px;margin:0;padding:6px}
+#heroPreview{display:block;width:100%;max-height:300px;object-fit:cover;margin:8px 0 14px;background:#e7edf6}
+#msg{font-weight:600;margin:8px 0}.hide{display:none}
+</style></head><body>
+<header><b>FIME · Espace administration</b><span><a href="index.html" style="color:#fff">Voir le site</a></span></header>
+<main>
+<div class="box" id="login"><h2>Connexion administrateur</h2>
+<label>Email</label><input id="em" type="email">
+<label>Mot de passe</label><input id="pw" type="password">
+<button id="go">Se connecter</button><div id="authmsg"></div></div>
+<div id="app">
+<div class="box"><h2>Image du bandeau d’accueil</h2><p class="help">Cette image sera téléversée dans Supabase Storage et son URL enregistrée dans la table site_media.</p>
+<img id="heroPreview" alt="Aperçu de l’image du bandeau" class="hide">
+<label for="heroFile">Choisir une image depuis votre appareil</label><input id="heroFile" type="file" accept="image/*">
+<button id="saveHero">Enregistrer l’image du bandeau</button><div id="heroMsg" role="status"></div></div>
+<div class="box"><h2 id="ft">Nouvelle publication</h2><input type="hidden" id="id">
+<label>Titre</label><input id="titre">
+<label>Thématique</label><select id="theme"><option>Femmes</option><option>Éducation</option><option>Salubrité</option><option>Gouvernance</option><option>Actualités</option></select>
+<label>Résumé (affiché sur la carte)</label><textarea id="resume" rows="2"></textarea>
+<label>Contenu de l’article</label><textarea id="contenu" rows="8"></textarea><p class="help">Séparez les paragraphes par une ligne vide. Vous pourrez placer chaque photo ou vidéo avant le texte ou après un paragraphe.</p>
+<p class="help">La première photo ajoutée devient automatiquement l’image de couverture (jamais une vidéo). Elle sera affichée sur les cartes et en tête de l’article.</p>
+<label>Ajouter les prochains médias à cet endroit</label><select id="mediaPosition"></select>
+<label>Photos (sélectionnez une ou plusieurs images depuis votre appareil)</label><input id="img" type="file" accept="image/*" multiple>
+<label>Vidéos (MP4, WebM)</label><input id="vid" type="file" accept="video/*" multiple>
+<label>Lien vidéo (optionnel)</label><input id="vurl" placeholder="https://… (optionnel)">
+<label>Médias de l’article</label><div class="media-queue" id="mediaQueue"></div>
+<label><input type="checkbox" id="publie" checked style="width:auto"> Publier immédiatement</label><br><br>
+<button id="save">Enregistrer</button> <button class="s" id="reset">Annuler</button><div id="msg"></div></div>
+<div class="box"><h2>Publications</h2><div id="list"></div></div></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script>
+const $=i=>document.getElementById(i);
+const say=t=>$("msg").textContent=t,esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cfg=window.FIME_SUPABASE||{};
+const sb=cfg.url&&cfg.anonKey?supabase.createClient(cfg.url,cfg.anonKey):null;
+let rows=[],remote=false,mediaQueue=[];
+function save(){localStorage.setItem("fime-publications",JSON.stringify(rows))}
+function paragraphCount(){return $("contenu").value.split(/\n\s*\n/).filter(p=>p.trim()).length}
+function positionOptions(selected){const count=paragraphCount();let options=`<option value="0">Avant le texte</option>`;for(let i=1;i<=count;i++)options+=`<option value="${i}">Après le paragraphe ${i}</option>`;return options.replace(`value="${selected}"`,`value="${selected}" selected`)}
+function refreshMediaPosition(){
+ const count=paragraphCount(),current=Math.min(Number($("mediaPosition").value)||0,count);
+ $("mediaPosition").innerHTML=positionOptions(current);
+ mediaQueue.forEach(item=>item.after_paragraph=Math.min(Number(item.after_paragraph)||0,count));
+ renderMediaQueue()
+}
+function renderMediaQueue(){
+ const count=paragraphCount(),firstImage=mediaQueue.findIndex(item=>item.type=="image");
+ $("mediaQueue").innerHTML=mediaQueue.length?mediaQueue.map((item,index)=>{
+  const selected=Math.min(Number(item.after_paragraph)||0,count),isCover=item.type=="image"&&index==firstImage;
+  const name=item.file?item.file.name:(item.name||String(item.url||"").split("/").pop());
+  return `<div class="row"><div><b>${isCover?"Couverture":item.type=="image"?"Photo":"Vidéo"}</b> · ${esc(name)}</div><div><select aria-label="Position de ${esc(name)}" onchange="mediaQueue[${index}].after_paragraph=Number(this.value)" ${isCover?"disabled":""}>${positionOptions(selected)}</select> <button type="button" class="s d" onclick="removeMedia(${index})">Retirer</button></div></div>`
+ }).join(""):"<p class=\"help\">Aucun média ajouté.</p>"
+}
+function removeMedia(index){mediaQueue.splice(index,1);renderMediaQueue()}
+function queueFiles(type,input){const position=Number($("mediaPosition").value)||0;Array.from(input.files).forEach(file=>mediaQueue.push({type,file,url:null,name:file.name,after_paragraph:position}));input.value="";renderMediaQueue()}
+function existingMedia(a){
+ if(Array.isArray(a.media_items)&&a.media_items.length)return a.media_items.map(item=>({type:item.type,url:item.url,name:item.name||"",after_paragraph:Number(item.after_paragraph)||0}));
+ const images=Array.isArray(a.image_urls)?a.image_urls.slice():[];
+ if(a.image_url&&!images.includes(a.image_url))images.unshift(a.image_url);
+ return images.map((url,index)=>({type:"image",url,name:`Photo ${index+1}`,after_paragraph:1})).concat(a.video_url?[{type:"video",url:a.video_url,name:"Vidéo",after_paragraph:1}]:[])
+}
+function readFile(f){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error||new Error("Lecture du fichier impossible."));reader.readAsDataURL(f)})}
+function makeUpload(){return async file=>{
+ const safeName=file.name.replace(/[^a-zA-Z0-9.-]/g,"_"),path=`${Date.now()}-${Math.random().toString(36).slice(2)}-${safeName}`;
+ const{error}=await sb.storage.from(cfg.mediaBucket||"fime-media").upload(path,file,{cacheControl:"3600",upsert:false});
+ if(error)throw error;
+ return sb.storage.from(cfg.mediaBucket||"fime-media").getPublicUrl(path).data.publicUrl;
+}}
+function renderedMediaUrls(mediaItems,type){return mediaItems.filter(item=>item.type==type).map(item=>item.url)}
+async function loadHero(){
+ if(!sb)return;
+ const{data,error}=await sb.from("site_media").select("image_url").eq("id","hero").maybeSingle();
+ if(error){$("heroMsg").textContent="Erreur : "+error.message;return}
+ if(data&&data.image_url){$("heroPreview").src=data.image_url;$("heroPreview").classList.remove("hide")}
+}
+ $("saveHero").onclick=async()=>{
+ const file=$("heroFile").files[0];
+ if(!file){$("heroMsg").textContent="Choisissez d’abord une image.";return}
+ if(!sb){$("heroMsg").textContent="La configuration Supabase est manquante.";return}
+ $("heroMsg").textContent="Envoi de l’image…";
+ try{
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session)throw new Error("Connectez-vous comme administrateur.");
+  const imageUrl=await makeUpload()(file);
+  const{error}=await sb.from("site_media").upsert({id:"hero",image_url:imageUrl,updated_at:new Date().toISOString()},{onConflict:"id"});
+  if(error)throw error;
+  $("heroPreview").src=imageUrl;$("heroPreview").classList.remove("hide");$("heroMsg").textContent="Image du bandeau mise à jour ✔";$("heroFile").value=""
+ }catch(error){$("heroMsg").textContent="Erreur : "+error.message}
+ };
+async function load(){
+ if(sb){const{data,error}=await sb.from("actualites").select("*").order("created_at",{ascending:false});if(error){say(error.message);return}rows=data||[];remote=true}
+ else{rows=JSON.parse(localStorage.getItem("fime-publications")||"[]")}
+ $("list").innerHTML=rows.map(a=>`<div class="row"><div style="display:flex;gap:10px;align-items:center">${a.video_url?`<video src="${esc(a.video_url)}"></video>`:a.image_url?`<img src="${esc(a.image_url)}">`:""}<div><b>${esc(a.titre)}</b><br><span class="pub ${a.publie?"":"dr"}">${a.publie?"Publié":"Brouillon"}</span> ${esc(a.theme)}</div></div>
+ <div><button class="s" onclick="edit(${a.id})">Modifier</button> <button class="s" onclick="tog(${a.id})">${a.publie?"Dépublier":"Publier"}</button> <button class="s d" onclick="del(${a.id})" style="color:#fff">Supprimer</button></div></div>`).join("")||"<p>Aucune publication.</p>"}
+$("save").onclick=async()=>{say("Enregistrement…");const id=$("id").value,old=rows.find(r=>r.id==Number(id))||{};
+ if(!$("titre").value.trim())return say("Le titre est obligatoire.");
+ try{
+  const upload=sb&&remote?makeUpload():null,mediaItems=[];
+  for(const item of mediaQueue){
+   const url=item.file?(upload?await upload(item.file):await readFile(item.file)):item.url;
+   if(url)mediaItems.push({type:item.type,url,after_paragraph:Math.min(Number(item.after_paragraph)||0,paragraphCount()),name:item.name||""})
+  }
+  const videoLink=$("vurl").value.trim(),linkPosition=Number($("mediaPosition").value)||0;
+  if(videoLink&&!mediaItems.some(item=>item.type=="video"&&item.url==videoLink))mediaItems.push({type:"video",url:videoLink,after_paragraph:linkPosition,name:"Vidéo"});
+  const imageUrls=renderedMediaUrls(mediaItems,"image"),videoUrl=(mediaItems.find(item=>item.type=="video")||{}).url||null;
+  const rec={titre:$("titre").value.trim(),theme:$("theme").value,resume:$("resume").value,contenu:$("contenu").value,publie:$("publie").checked,media_items:mediaItems,image_urls:imageUrls,image_url:imageUrls[0]||null,video_url:videoUrl,created_at:old.created_at||new Date().toISOString()};
+ if(remote){const result=id?await sb.from("actualites").update(rec).eq("id",id):await sb.from("actualites").insert(rec);if(result.error)return say("Erreur : "+result.error.message)}
+ else{if(id){rows=rows.map(r=>r.id==Number(id)?{...r,...rec}:r)}else{rec.id=Date.now();rows.unshift(rec)}save()}
+ reset();say("Enregistré ✔");load()
+ }catch(error){say("Erreur : "+error.message)}};
+function reset(){["id","titre","resume","contenu","vurl","img","vid"].forEach(i=>$(i).value="");mediaQueue=[];$("publie").checked=true;$("ft").textContent="Nouvelle publication";refreshMediaPosition()}
+$("reset").onclick=reset;
+function edit(id){const a=rows.find(r=>r.id==id);$("id").value=a.id;$("titre").value=a.titre;$("theme").value=a.theme;$("resume").value=a.resume||"";$("contenu").value=a.contenu||"";$("publie").checked=a.publie;$("vurl").value="";mediaQueue=existingMedia(a);$("ft").textContent="Modifier la publication";refreshMediaPosition();scrollTo(0,0)}
+ $("img").onchange=()=>queueFiles("image",$("img"));
+ $("vid").onchange=()=>queueFiles("video",$("vid"));
+ $("contenu").oninput=refreshMediaPosition;
+ refreshMediaPosition();
+async function tog(id){const a=rows.find(r=>r.id==id);if(remote){const{error}=await sb.from("actualites").update({publie:!a.publie}).eq("id",id);if(error)return say(error.message)}else{rows=rows.map(r=>r.id==id?{...r,publie:!r.publie}:r);save()}load()}
+async function del(id){if(confirm("Supprimer définitivement cette publication ?")){if(remote){const{error}=await sb.from("actualites").delete().eq("id",id);if(error)return say(error.message)}else{rows=rows.filter(r=>r.id!=id);save()}load()}}
+async function init(){
+ if(!sb){$("login").classList.add("hide");remote=false;load();return}
+ const{data:{session}}=await sb.auth.getSession();
+ $("login").classList.toggle("hide",!!session);$("app").classList.toggle("hide",!session);
+ if(session){load();loadHero()}
+}
+$("go").onclick=async()=>{const{data,error}=await sb.auth.signInWithPassword({email:$("em").value,password:$("pw").value});if(error)return $("authmsg").textContent="Connexion refusée : "+error.message;$("login").classList.add("hide");$("app").classList.remove("hide");load();loadHero()};
+if(sb)sb.auth.onAuthStateChange((event,session)=>{if(event=="SIGNED_OUT")init()});
+init();
+</script></body></html>

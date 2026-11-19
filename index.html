@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<link rel="apple-touch-icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>FIME – Fondation Iyeli Molangi Eddy, pour chaque famille</title>
+<meta name="description" content="Fondation Iyeli Molangi Eddy : autonomisation des femmes, éducation et salubrité à Kinshasa et Mbandaka.">
+<style>
+:root{color-scheme:light;--b:#0a4ea3;--n:#0a2a5e;--c:#1cabe2;--y:#ffc20e;--t:#1a1a1a;--l:#dfe5ee;--g:#f3f6fa}
+*{box-sizing:border-box;margin:0;padding:0}html{background:#fff}
+body{background:#fff;color:var(--t);font:17px/1.6 "Manrope","Segoe UI",Helvetica,Arial,sans-serif}
+a{color:inherit;text-decoration:none}ul{list-style:none}.w{max-width:1240px;margin:auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:8px;background:#fff;color:var(--n);padding:10px 16px;z-index:20}.skip:focus{left:16px}
+h1,h2,h3{font-family:"Lora",Georgia,"Times New Roman",serif;line-height:1.18;color:var(--n)}
+/* en-tête */
+.util{background:var(--g);font-size:13px;border-bottom:1px solid var(--l)}.util .w{display:flex;justify-content:flex-end;gap:22px;align-items:center;height:36px}
+.util button{background:none;border:0;font:600 13px inherit;color:var(--n);cursor:pointer}.util button.on{text-decoration:underline}
+.util input{border:1px solid #9aa6b6;padding:4px 10px;font-size:13px;width:190px;background:#fff;color:var(--t)}
+header{position:sticky;top:0;z-index:6;background:#fff;border-bottom:1px solid var(--l)}
+.bar{display:flex;align-items:center;gap:30px;height:78px}
+.logo{display:flex;align-items:center;height:68px;color:var(--b)}.logo img{height:68px;width:auto;max-width:240px;object-fit:contain}
+nav>ul{display:flex;gap:6px}nav>ul>li>a{display:block;padding:28px 14px;font-weight:600;font-size:15px;border-bottom:4px solid transparent}
+nav>ul>li:hover>a{border-color:var(--c);color:var(--b)}
+.mm{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--l);box-shadow:0 12px 24px #0002;padding:30px 0}
+nav>ul>li:hover .mm{display:block}.mm .w{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.mm h4{font:700 12px "Manrope",sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#555;margin-bottom:10px}.mm li a{display:block;padding:5px 0;font-weight:600;color:var(--n)}.mm li a:hover{color:var(--c)}
+.don{margin-left:auto;background:var(--y);color:#111;font-weight:700;padding:12px 26px}.don:hover{background:#e5ac00}
+.burger{display:none;background:none;border:2px solid var(--n);padding:6px 12px;font-weight:700;color:var(--n);margin-left:auto;cursor:pointer}
+/* bandeau */
+.ban{position:relative;min-height:540px;background:linear-gradient(135deg,#87c6ef 0%,#3b86c4 60%,#0a4ea3 100%);display:flex;align-items:flex-end}
+.ban .card{background:var(--b);color:#fff;max-width:520px;padding:34px 36px;margin-bottom:0}
+.ban .card h1{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:6px 0 12px}.ban .card p{margin-bottom:22px}.ban .k{font:700 13px "Manrope",sans-serif;text-transform:uppercase;letter-spacing:1.2px;color:var(--y)}
+.btn{display:inline-block;background:var(--y);color:#111;padding:12px 26px;font-weight:700;border:0;cursor:pointer;font-size:16px}.btn:hover{background:#e5ac00}
+.sec{padding:70px 0}.alt{background:var(--g)}
+h2.s{font-size:clamp(28px,3.4vw,42px);margin-bottom:28px}
+/* cartes */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 28px}
+.it{cursor:pointer;display:flex;flex-direction:column;width:100%;border:0;background:transparent;text-align:left;font:inherit;color:inherit}.it:focus-visible,.gal div:focus-visible,.sp a:focus-visible{outline:3px solid var(--y);outline-offset:4px}.it .im{aspect-ratio:16/10;background:#cfe4f6;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--b);font:700 14px "Manrope",sans-serif;text-transform:uppercase;letter-spacing:1px}
+.it img,.it video{width:100%;height:100%;object-fit:cover;display:block}
+.it .k{font-size:13px;color:#444;margin:14px 0 6px}.it .k b{color:var(--b);text-transform:uppercase;letter-spacing:.8px}
+.it h3{font-size:22px}.it:hover h3{color:var(--b);text-decoration:underline}.it p{margin:8px 0 12px;font-size:16px;color:#333}
+.it .lm{margin-top:auto;font-weight:700;color:var(--b);border-bottom:2px solid var(--c);align-self:flex-start}
+.tabs{display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--l);margin:-8px 0 28px}.tabs button{background:none;border:0;border-bottom:4px solid transparent;padding:8px 0;font:600 15px "Manrope",sans-serif;color:#333;cursor:pointer}.tabs .on{border-color:var(--b);color:var(--b)}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.big p{font-size:20px;margin-bottom:20px}
+.sp{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.sp a{background:#fff;border-top:6px solid var(--c);padding:22px;display:block}.sp a:nth-child(2){border-color:var(--y)}.sp a:nth-child(3){border-color:var(--b)}
+.sp .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555}.sp h3{font-size:21px;margin:6px 0 8px}.sp p{font-size:15px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.gal div{aspect-ratio:1;overflow:hidden;cursor:pointer;background:#cfe4f6}.gal img,.gal video{width:100%;height:100%;object-fit:cover;display:block}
+.nl{position:relative;background:linear-gradient(120deg,#dcefff,#f5d86a);padding:90px 0}.nl .card{background:#fff;max-width:520px;padding:34px}.nl h2{font-size:30px;margin-bottom:10px}.nl form{display:flex;margin-top:18px}.nl input{flex:1;min-width:0;padding:12px;border:2px solid var(--n);font-size:16px;background:#fff;color:var(--t)}
+/* pied */
+footer{background:var(--n);color:#fff;padding:56px 0 26px;font-size:15px}footer h4{font:700 13px "Manrope",sans-serif;text-transform:uppercase;letter-spacing:1.2px;color:var(--y);margin-bottom:12px}
+footer .g{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}footer li{margin-bottom:6px}footer a:hover{text-decoration:underline}
+footer .m{margin-top:34px;padding-top:18px;border-top:1px solid #ffffff40;color:#d6e2f5;font-size:13px;line-height:1.5}
+.modal{position:fixed;inset:0;background:#fff;display:none;justify-content:center;z-index:9;padding:0;overflow:hidden;align-items:stretch}.modal.o{display:flex}
+.box{background:#fff;width:100%;height:100%;overflow-y:auto;overscroll-behavior:contain;padding:0;position:relative}
+.reader-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:12px max(24px,calc((100vw - 1060px)/2));background:#fff;border-bottom:1px solid var(--l)}
+.reader-brand{font-weight:700;color:var(--n)}.reader-close{position:static;display:flex;align-items:center;gap:8px;font:600 16px "Manrope",sans-serif;border:1px solid var(--l);border-radius:4px;padding:8px 14px;background:#fff;cursor:pointer;color:var(--n)}
+.reader-close:hover{background:var(--g)}.reader-close span{font-size:24px;line-height:1}
+.reader-content{max-width:920px;margin:0 auto;padding:52px 32px 90px}
+.reader-meta{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--b)}
+.reader-title{font-size:clamp(34px,6vw,58px);margin:12px 0 20px}
+.reader-summary{font-size:21px;color:#444;margin-bottom:28px}
+.reader-cover{display:block;width:100%;max-height:65vh;object-fit:cover;margin:34px 0 10px;background:var(--g)}
+.reader-inline{margin:34px 0}.reader-inline img,.reader-inline video{display:block;width:100%;max-height:75vh;object-fit:contain;margin:auto;background:var(--g)}
+.reader-body{font-size:19px;line-height:1.85;margin-top:30px}.reader-body p{margin:0 0 1.5em}
+body.modal-open{overflow:hidden}
+.empty{color:#444;grid-column:1/-1}
+@media(max-width:600px){.reader-head{padding:10px 16px}.reader-content{padding:32px 18px 60px}.reader-summary{font-size:18px}.reader-body{font-size:17px}}
+@media(max-width:1100px){.bar{gap:10px}nav>ul{gap:0}nav>ul>li>a{padding-left:8px;padding-right:8px;font-size:14px}.don{padding-left:14px;padding-right:14px}}
+@media(max-width:900px){nav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--l)}nav.o{display:block}nav>ul{flex-direction:column}nav>ul>li>a{padding:14px 24px}.mm{display:none!important}.burger{display:block}.don{margin-left:0;padding:10px 16px}
+.cards,.sp,.gal,footer .g,.big{grid-template-columns:1fr 1fr}.big{grid-template-columns:1fr}.util input{width:110px}}
+@media(max-width:560px){.cards,.sp,footer .g{grid-template-columns:1fr}}
+</style></head><body>
+<a class="skip" href="#contenu-principal">Aller au contenu</a>
+<div class="util"><div class="w"><input id="q" placeholder="Rechercher" data-en="Search" aria-label="Rechercher"><span><button id="lf" class="on" onclick="lang('fr')" aria-pressed="true">Français</button> <button id="le" onclick="lang('en')" aria-pressed="false">English</button></span></div></div>
+<header><div class="w bar" style="position:static">
+<a class="logo" href="#" aria-label="FIME - Fondation Iyeli Molangi Eddy"><img src="assets/logo.jpg" alt="FIME - Fondation Iyeli Molangi Eddy"></a>
+<nav id="nav"><ul>
+<li><a href="#apropos" data-en="Who we are">Qui sommes-nous</a><div class="mm"><div class="w"><div><h4 data-en="About the FIME">La FIME</h4><ul><li><a href="#apropos" data-en="Our foundation">Notre fondation</a></li><li><a href="#apropos" data-en="Legal framework">Cadre légal</a></li><li><a href="#contact" data-en="Where to find us">Où nous trouver</a></li></ul></div></div></div></li>
+<li><a href="#programmes" data-en="What we do">Ce que nous faisons</a><div class="mm"><div class="w"><div><h4 data-en="Focus areas">Domaines d’action</h4><ul><li><a href="#programmes" data-en="Women’s empowerment">Autonomisation des femmes</a></li><li><a href="#programmes" data-en="Education and training">Éducation et formation</a></li><li><a href="#programmes" data-en="Health and living environment">Santé et cadre de vie</a></li></ul></div></div></div></li>
+<li><a href="#actualites" data-en="Stories">Actualités</a><div class="mm"><div class="w"><div><h4 data-en="Latest">À lire</h4><ul><li><a href="#actualites" data-en="News and stories">Nouvelles et histoires</a></li><li><a href="#galerie" data-en="Photos and videos">Photos et vidéos</a></li></ul></div></div></div></li>
+<li><a href="#actualites" data-en="Reports">Rapports</a></li>
+<li><a href="#impliquer" data-en="Take action">Agir</a><div class="mm"><div class="w"><div><h4 data-en="Get involved">S’impliquer</h4><ul><li><a href="#impliquer" data-en="Donate">Faire un don</a></li><li><a href="#impliquer" data-en="Partner with us">Devenir partenaire</a></li><li><a href="#impliquer" data-en="Volunteer">Bénévolat</a></li><li><a href="#newsletter" data-en="Subscribe">S’abonner</a></li></ul></div></div></div></li>
+</ul></nav>
+<a class="don" href="#impliquer" data-en="Donate">Faire un don</a><button class="burger" id="menuBtn" onclick="nav.classList.toggle('o');this.setAttribute('aria-expanded',nav.classList.contains('o'))" aria-controls="nav" aria-expanded="false">Menu</button></div></header>
+
+<main id="contenu-principal">
+<div class="ban" role="region" aria-label="Présentation de la fondation"><div class="w" style="width:100%"><div class="card"><span class="k" data-en="Kinshasa · Mbandaka">Kinshasa · Mbandaka</span>
+<h1 data-en="Women, children and neighbourhoods moving forward">Des femmes, des enfants et des quartiers qui avancent</h1>
+<p data-en="The FIME supports families towards autonomy, education and a healthier living environment.">La FIME accompagne les familles vers l’autonomie, l’éducation et un cadre de vie plus sain.</p>
+<a class="btn" href="#programmes" data-en="Our work">Notre travail</a></div></div></div>
+
+<section class="sec" id="actualites"><div class="w"><h2 class="s" data-en="FIME, for every family">FIME, pour chaque famille</h2>
+<div class="tabs" id="tabs"></div><div class="cards" id="news"></div></div></section>
+
+<section class="sec alt" id="programmes"><div class="w big"><div><h2 class="s" style="margin-bottom:16px" data-en="The FIME’s work">Le travail de la FIME</h2>
+<p data-en="From Ngiri-Ngiri in Kinshasa to Mbandaka, the foundation works with women, children and communities, guided by its motto: Work, Progress and Social.">De Ngiri-Ngiri, à Kinshasa, jusqu’à Mbandaka, la fondation travaille avec les femmes, les enfants et les communautés, guidée par sa devise : Travail, Progrès et Social.</p>
+<a class="btn" href="#apropos" data-en="Explore what we do">Découvrir nos actions</a></div>
+<div class="sp" style="grid-template-columns:1fr">
+<a href="#programmes"><span class="k" data-en="Focus area">Domaine d’action</span><h3 data-en="Women’s empowerment">Autonomisation des femmes</h3><p data-en="Sewing, support for women traders, widows and young mothers.">Coupe et couture, soutien aux commerçantes, accompagnement des veuves et des filles-mères.</p></a>
+<a href="#programmes"><span class="k" data-en="Focus area">Domaine d’action</span><h3 data-en="Education and training">Éducation et formation</h3><p data-en="Support and training for children, including the driving school.">Soutien aux enfants, encadrement et formation, y compris l’auto-école.</p></a>
+<a href="#programmes"><span class="k" data-en="Focus area">Domaine d’action</span><h3 data-en="Health and living environment">Santé et cadre de vie</h3><p data-en="Sanitation, drain clearing and community awareness.">Assainissement, curage des caniveaux et sensibilisation des communautés.</p></a></div></div></section>
+
+<section class="sec" id="apropos"><div class="w big"><div><h2 class="s" style="margin-bottom:12px" data-en="Who we are">Qui sommes-nous</h2><p style="font-size:17px" data-en="The Fondation Iyeli Molangi Eddy is a Congolese organisation based in the Ngiri-Ngiri commune of Kinshasa and also active in Mbandaka.">La Fondation Iyeli Molangi Eddy est une organisation congolaise basée dans la commune de Ngiri-Ngiri, à Kinshasa, et active également à Mbandaka.</p></div>
+<div><h2 class="s" style="margin-bottom:12px" data-en="Legal framework">Cadre légal</h2><p style="font-size:17px" data-en="Legal personality F92 No. 27.249, granted by the Ministry of Justice.">Personnalité juridique <b>F92 N° 27.249</b>, accordée par le Ministère de la Justice et Garde des Sceaux.</p></div></div></section>
+
+<section class="sec alt" id="galerie"><div class="w"><h2 class="s" data-en="Photos and videos">Photos et vidéos</h2><div class="gal" id="gal"></div></div></section>
+
+<section class="sec" id="impliquer"><div class="w"><h2 class="s" data-en="Take action">Agir avec nous</h2><div class="sp">
+<a href="#contact"><span class="k" data-en="Give">Soutenir</span><h3 data-en="Make a donation">Faire un don</h3><p data-en="Help fund the foundation’s programmes.">Aidez à financer les programmes de la fondation.</p></a>
+<a href="#contact"><span class="k" data-en="Partner">Collaborer</span><h3 data-en="Become a partner">Devenir partenaire</h3><p data-en="Organisations and companies, build with us.">Organisations et entreprises, construisons ensemble.</p></a>
+<a href="#contact"><span class="k" data-en="Volunteer">S’engager</span><h3 data-en="Volunteer">Devenir bénévole</h3><p data-en="Give time and skills to the community.">Donnez du temps et des compétences à la communauté.</p></a>
+<a href="#newsletter"><span class="k" data-en="Stay informed">S’informer</span><h3 data-en="Subscribe">S’abonner</h3><p data-en="Receive our news by email.">Recevez nos nouvelles par email.</p></a></div></div></section>
+
+<section class="nl" id="newsletter"><div class="w"><div class="card"><h2 data-en="Subscribe to our newsletter">Abonnez-vous à notre bulletin</h2><p data-en="News from the field, with families kept in focus.">Les nouvelles du terrain, avec les familles au centre.</p>
+<form id="newsletterForm"><input type="email" required placeholder="Email" aria-label="Email"><button class="btn" data-en="Sign up">S’inscrire</button></form><p id="nlmsg" role="status" style="margin-top:12px"></p></div></div></section>
+
+<footer id="contact"><div class="w"><div class="g">
+<div><h4>FIME</h4><ul><li><a href="#programmes" data-en="What we do">Ce que nous faisons</a></li><li><a href="#actualites" data-en="Stories">Actualités</a></li><li><a href="#galerie" data-en="Photos and videos">Photos et vidéos</a></li><li><a href="#impliquer" data-en="Take action">Agir</a></li></ul></div>
+<div><h4 data-en="About us">À propos</h4><ul><li><a href="#apropos" data-en="Who we are">Qui sommes-nous</a></li><li><a href="#apropos" data-en="Legal framework">Cadre légal</a></li><li><a href="#impliquer" data-en="Partner with us">Devenir partenaire</a></li></ul></div>
+<div><h4 data-en="Find us">Nous trouver</h4><ul>
+<li>N°46, Av/Movenda, Q/Diomi, C/Ngiri-Ngiri, Kinshasa-RDC</li>
+<li>Tél. : <a href="tel:+243851381732">(+243) 851 381 732</a><br><a href="tel:+243815617960">(+243) 815 617 960</a><br><a href="tel:+243999229561">(+243) 999 229 561</a><br><a href="tel:+243894025175">(+243) 894 025 175</a></li>
+<li>Email : <a href="mailto:contact@fimerdc.com">contact@fimerdc.com</a></li>
+</ul></div>
+<div><h4 data-en="Opening hours">Horaires</h4><ul><li data-en="Monday – Friday: 8am – 4pm (to confirm)">Lundi – vendredi : 8h – 16h (à confirmer)</li><li><a class="btn" href="#impliquer" style="margin-top:8px" data-en="Become a donor">Faire un don</a></li></ul></div></div>
+</div></footer>
+</main>
+
+<div class="modal" id="mod" role="dialog" aria-modal="true" aria-labelledby="articleTitle" onclick="if(event.target===this)closeArticle()"><div class="box"><div id="mb"></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script>
+let items=[],th="Tous",L="fr",newsError="",previousFocus=null;const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const imagesOf=a=>{const images=Array.isArray(a.image_urls)?a.image_urls.filter(Boolean):[];if(a.image_url&&!images.includes(a.image_url))images.unshift(a.image_url);if(Array.isArray(a.media_items))a.media_items.filter(item=>item.type=="image"&&item.url&&!images.includes(item.url)).forEach(item=>images.push(item.url));return images};
+const media=a=>{const cover=imagesOf(a)[0];return cover?`<img src="${esc(cover)}" alt="${esc(a.titre)}" loading="lazy">`:""};
+const galleryMedia=a=>media(a)||(a.video_url?`<video src="${esc(a.video_url)}" muted preload="metadata"></video>`:"");
+function articleMediaItems(a){
+ if(Array.isArray(a.media_items)&&a.media_items.length)return a.media_items.filter(item=>(item.type=="image"||item.type=="video")&&item.url).map(item=>({type:item.type,url:item.url,after_paragraph:Number(item.after_paragraph)||0}));
+ return imagesOf(a).map((url,index)=>({type:"image",url,after_paragraph:index?1:1})).concat(a.video_url?[{type:"video",url:a.video_url,after_paragraph:1}]:[])
+}
+function articleBody(a){
+ const paragraphs=String(a.contenu||a.resume||"").split(/\r?\n\s*\r?\n/).map(p=>p.trim()).filter(Boolean),cover=imagesOf(a)[0],mediaItems=articleMediaItems(a);
+ const coverIndex=mediaItems.findIndex(item=>item.type=="image"&&item.url==cover);if(coverIndex>=0)mediaItems.splice(coverIndex,1);
+ const positions={};mediaItems.forEach(item=>{const position=Math.min(Math.max(Number(item.after_paragraph)||0,0),paragraphs.length);(positions[position]||(positions[position]=[])).push(item)});
+ const renderItems=items=>items.map(item=>item.type=="image"?`<figure class="reader-inline"><img src="${esc(item.url)}" alt="${esc(a.titre)}" loading="lazy"></figure>`:`<figure class="reader-inline"><video src="${esc(item.url)}" controls preload="metadata"></video></figure>`).join("");
+ let html=renderItems(positions[0]||[]);
+ paragraphs.forEach((paragraph,index)=>{html+=`<p>${esc(paragraph).replace(/\r?\n/g,"<br>")}</p>${renderItems(positions[index+1]||[])}`});
+ return html
+}
+function lang(l){L=l;$("lf").className=l=="fr"?"on":"";$("le").className=l=="en"?"on":"";$("lf").setAttribute("aria-pressed",l=="fr");$("le").setAttribute("aria-pressed",l=="en");document.documentElement.lang=l;
+ document.querySelectorAll("[data-en]").forEach(e=>{const a=e.hasAttribute("placeholder")?"placeholder":null;
+  if(!e.dataset.fr)e.dataset.fr=a?e.getAttribute(a):e.innerHTML;
+  const v=l=="en"?e.dataset.en:e.dataset.fr;a?e.setAttribute(a,v):e.innerHTML=v});show()}
+function setTh(i){th=window._t[i];show()}
+function show(){const q=$("q").value.toLowerCase(),en=L=="en";
+ const l=items.filter(a=>(th=="Tous"||a.theme==th)&&(a.titre+(a.resume||"")+(a.contenu||"")).toLowerCase().includes(q));
+ $("news").innerHTML=newsError?`<p class="empty">${esc(newsError)}</p>`:l.length?l.map(a=>`<button type="button" class="it" onclick="open_(${a.id})" aria-label="${esc(a.titre)}"><div class="im">${media(a)||esc(a.theme)}</div><div class="k"><b>${esc(a.theme)}</b> · ${new Date(a.created_at).toLocaleDateString(en?"en-GB":"fr-FR")}</div><h3>${esc(a.titre)}</h3><p>${esc(a.resume)}</p><span class="lm">${en?"Read now":"Lire la suite"}</span></button>`).join(""):`<p class="empty">${en?"No published article found.":"Aucun article publié pour le moment."}</p>`;
+ window._t=["Tous",...new Set(items.map(a=>a.theme).filter(Boolean))];
+ $("tabs").innerHTML=window._t.map((t,i)=>`<button class="${t==th?"on":""}" onclick="setTh(${i})">${t=="Tous"&&en?"All":esc(t)}</button>`).join("");
+ const m=items.filter(a=>a.image_url||a.video_url||(Array.isArray(a.image_urls)&&a.image_urls.length)||(Array.isArray(a.media_items)&&a.media_items.length));
+ $("gal").innerHTML=m.length?m.map(a=>`<div onclick="open_(${a.id})">${galleryMedia(a)}</div>`).join(""):`<p class="empty">${en?"Published photos and videos will appear here.":"Les photos et vidéos publiées apparaîtront ici."}</p>`}
+function open_(id){const a=items.find(x=>x.id==id);if(!a)return;previousFocus=document.activeElement;const date=new Date(a.created_at).toLocaleDateString(L=="en"?"en-GB":"fr-FR"),cover=imagesOf(a)[0];
+ $("mb").innerHTML=`<div class="reader-head"><span class="reader-brand">FIME · Article</span><button type="button" class="reader-close" id="closeArticleButton" onclick="closeArticle()"><span aria-hidden="true">×</span>${L=="en"?"Close":"Fermer"}</button></div><article class="reader-content"><div class="reader-meta">${esc(a.theme)} · ${esc(date)}</div><h2 class="reader-title" id="articleTitle">${esc(a.titre)}</h2>${a.resume?`<p class="reader-summary">${esc(a.resume)}</p>`:""}${cover?`<img class="reader-cover" src="${esc(cover)}" alt="${esc(a.titre)}" fetchpriority="high">`:""}<div class="reader-body">${articleBody(a)}</div></article>`;
+ $("mod").classList.add("o");document.body.classList.add("modal-open");$("closeArticleButton").focus()}
+function closeArticle(){$("mod").classList.remove("o");document.body.classList.remove("modal-open");if(previousFocus&&previousFocus.focus)previousFocus.focus();previousFocus=null}
+$("q").oninput=()=>{show();$("actualites").scrollIntoView()};
+function applyHeroImage(imageUrl,cfg){
+ try{
+  const image=new URL(imageUrl),project=new URL(cfg.url),bucket=cfg.mediaBucket||"fime-media";
+  if(image.protocol!="https:"||image.origin!=project.origin||!image.pathname.startsWith(`/storage/v1/object/public/${bucket}/`))return;
+  const banner=document.querySelector(".ban");
+  banner.style.backgroundImage=`linear-gradient(135deg,rgba(10,78,163,.18),rgba(10,42,94,.42)),url("${image.href}")`;
+  banner.style.backgroundSize="cover";banner.style.backgroundPosition="center";banner.style.backgroundRepeat="no-repeat"
+ }catch(error){console.error("Image du bandeau invalide:",error)}
+}
+(async()=>{const cfg=window.FIME_SUPABASE||{};
+ if(!cfg.url||!cfg.anonKey||!window.supabase){newsError=L=="en"?"The article database is not configured.":"La base de données des articles n’est pas configurée.";show();return}
+ const sb=supabase.createClient(cfg.url,cfg.anonKey);
+ try{const{data,error}=await sb.from("actualites").select("*").eq("publie",true).order("created_at",{ascending:false});if(error)throw error;items=Array.isArray(data)?data:[]}
+ catch(error){console.error("Supabase actualites:",error);newsError=L=="en"?"Unable to load articles from the database.":"Impossible de charger les articles depuis la base de données."}
+ try{const{data,error}=await sb.from("site_media").select("image_url").eq("id","hero").maybeSingle();if(error)throw error;if(data&&data.image_url)applyHeroImage(data.image_url,cfg)}
+ catch(error){console.warn("Image du bandeau Supabase:",error.message)}
+ show()})();
+$("newsletterForm").onsubmit=async e=>{e.preventDefault();const input=e.currentTarget.querySelector("input");const cfg=window.FIME_SUPABASE||{};let ok=true;
+ if(cfg.url&&cfg.anonKey){try{const sb=supabase.createClient(cfg.url,cfg.anonKey);const{error}=await sb.from("newsletter").insert({email:input.value.trim().toLowerCase()});if(error&&!String(error.message).toLowerCase().includes("duplicate"))throw error}catch(error){console.error("Supabase:",error);ok=false}}
+ if(ok){const emails=JSON.parse(localStorage.getItem("fime-newsletter")||"[]");if(!emails.includes(input.value)){emails.push(input.value);localStorage.setItem("fime-newsletter",JSON.stringify(emails))}$("nlmsg").textContent=L=="en"?"Thank you for subscribing.":"Merci pour votre inscription.";e.currentTarget.reset()}else{$("nlmsg").textContent=L=="en"?"Unable to register. Please try again.":"Impossible d’inscrire cette adresse. Réessayez."}};
+document.addEventListener("keydown",e=>{if(!$("mod").classList.contains("o"))return;
+ if(e.key=="Escape"){closeArticle();return}
+ if(e.key=="Tab"){const focusable=Array.from($("mod").querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),video[controls],[tabindex]:not([tabindex="-1"])'));if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+});
+</script></body></html>
