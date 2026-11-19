@@ -16,3 +16,10 @@ Les clés publishable/anon sont destinées au navigateur et sont limitées par l
 ## Application d’administration (PWA)
 
 Servez le site en HTTPS, ouvrez `admin.html`, puis utilisez le bouton d’installation du navigateur. Sur iPhone/iPad, dans Safari, choisissez **Partager → Ajouter à l’écran d’accueil**. Le cache PWA conserve uniquement l’interface statique ; connexion, publications et envois de médias nécessitent Internet et Supabase.
+
+## Site en ligne
+
+- Site public : https://joachimdik-ui.github.io/fime-rdc/
+- Administration : https://joachimdik-ui.github.io/fime-rdc/admin.html
+
+GitHub Pages publie automatiquement la racine de la branche `main`.
